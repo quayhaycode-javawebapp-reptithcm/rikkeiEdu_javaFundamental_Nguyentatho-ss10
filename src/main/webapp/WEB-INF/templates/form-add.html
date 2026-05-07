@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm công việc</title>
+</head>
+<body>
+
+<h2>THÊM CÔNG VIỆC MỚI</h2>
+
+<form th:action="@{/tasks/add}" th:object="${taskItem}" method="post">
+
+    <!-- ID -->
+    <div>
+        <label>Mã công việc:</label><br/>
+        <input type="text" th:field="*{id}" />
+    </div>
+    <br/>
+
+    <!-- Title -->
+    <div>
+        <label>Tên công việc:</label><br/>
+        <input type="text" th:field="*{title}" />
+        <!-- Hiển thị 1 lỗi duy nhất nếu có -->
+        <div th:if="${#fields.hasErrors('title')}"
+             th:text="${#fields.errors('title')[0]}"
+             style="color: red;">
+        </div>
+    </div>
+    <br/>
+
+    <!-- Deadline -->
+    <div>
+        <label>Hạn hoàn thành:</label><br/>
+        <input type="date" th:field="*{deadline}" />
+        <div th:if="${#fields.hasErrors('deadline')}"
+             th:text="${#fields.errors('deadline')[0]}"
+             style="color: red;">
+        </div>
+    </div>
+    <br/>
+
+    <!-- Priority -->
+    <div>
+        <label>Mức độ ưu tiên:</label><br/>
+        <select th:field="*{priority}">
+            <option value="">-- Chọn --</option>
+            <option value="HIGH">HIGH</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="LOW">LOW</option>
+        </select>
+        <div th:if="${#fields.hasErrors('priority')}"
+             th:text="${#fields.errors('priority')[0]}"
+             style="color: red;">
+        </div>
+    </div>
+    <br/>
+
+    <button type="submit">Lưu công việc</button>
+    <a th:href="@{/tasks}">Quay lại danh sách</a>
+
+</form>
+
+</body>
+</html>
